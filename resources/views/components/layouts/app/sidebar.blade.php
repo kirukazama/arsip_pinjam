@@ -17,6 +17,12 @@
                 </flux:navlist.group>
             </flux:navlist>
 
+            <flux:navlist.group expandable heading="Master" class="lg:grid">
+                <flux:navlist.item :href="route('biro')" :current="request()->routeIs('biro')">{{ __('Biro') }}</flux:navlist.item>
+                <flux:navlist.item href="#">Android app</flux:navlist.item>
+                <flux:navlist.item href="#">Brand guidelines</flux:navlist.item>
+            </flux:navlist.group>
+
             <flux:spacer />
 
             <flux:navlist variant="outline">
