@@ -21,6 +21,8 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 
     Volt::route('biro', 'biro')->name('biro');
+    Volt::route('role', 'role')->name('role');
+    Volt::route('pegawai', 'pegawai')->name('pegawai');
 });
 
 require __DIR__.'/auth.php';
