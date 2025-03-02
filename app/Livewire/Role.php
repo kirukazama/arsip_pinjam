@@ -2,13 +2,13 @@
 
 namespace App\Livewire;
 use App\Models\Mrole;
-//use Livewire\WithPagination;
+use Livewire\WithPagination;
 
 use Livewire\Component;
 
 class Role extends Component
 {
-    //use WithPagination;
+    use WithPagination;
     public $roleId, $roleName;
     public $search = '';
     public $title = '';

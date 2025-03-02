@@ -4,11 +4,11 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Mbiro;
-//use Livewire\WithPagination;
+use Livewire\WithPagination;
 
 class Biro extends Component
 {
-    //use WithPagination;
+    use WithPagination;
     public $biroId, $biroName;
     public $search = '';
     public $title = '';
