@@ -42,6 +42,8 @@
                     <tbody>
                         @foreach ($biros as $index => $biro)
                             <tr class="border-b dark:border-gray-600">
+                                <td class="px-4 py-2 text-gray-900 dark:text-gray-100">{{ $loop->iteration }}</td>
+                                <td class="px-4 py-2 text-gray-900 dark:text-gray-100">{{ $biro->biro_name }}</td>
                                 <td class="px-4 py-2">
                                     <flux:dropdown position="bottom" align="end" offset="-15">
                                         <flux:button variant="ghost" size="sm" icon="ellipsis-horizontal"
@@ -60,8 +62,6 @@
                                         </flux:menu>
                                     </flux:dropdown>
                                 </td>
-                                <td class="px-4 py-2 text-gray-900 dark:text-gray-100">{{ $loop->iteration }}</td>
-                                <td class="px-4 py-2 text-gray-900 dark:text-gray-100">{{ $biro->biro_name }}</td>
                             </tr>
                         @endforeach
                     </tbody>

@@ -16,7 +16,7 @@
             <flux:navlist variant="outline">
                 <flux:navlist.group heading="Platform" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
-                    <flux:navlist.item icon="inbox" badge="12" href="#">Inbox</flux:navlist.item>
+                    <flux:navlist.item icon="inbox" badge="0" :href="route('inbox')" :current="request()->routeIs('inbox')" wire:navigate>{{ __('Inbox') }}</flux:navlist.item>
                     <flux:navlist.item icon="book-open-text" href="#">Archive Loan Book</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
