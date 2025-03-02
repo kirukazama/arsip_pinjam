@@ -22,10 +22,11 @@
         </div>
 
         <flux:separator variant="subtle" class="my-4" />
-        <div class="mb-10">
+        <div class="flex items-center gap-2">
             <flux:modal.trigger name="form-data" class="p-4">
                 <flux:button size="sm" variant="primary">Tambah Biro</flux:button>
             </flux:modal.trigger>
+            <flux:input size="sm" wire:model.live="search" placeholder="Search role.." class="w-full max-w-sm ml-auto" />
         </div>
 
         <div

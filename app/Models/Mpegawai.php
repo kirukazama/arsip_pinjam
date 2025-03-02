@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Mbiro extends Model
+class Mpegawai extends Model
 {
     use HasFactory;
 
     // Tentukan nama tabel jika berbeda dengan nama model
-    protected $table = 'biro';
+    protected $table = 'pegawai';
 
     // Tentukan kolom yang dapat diisi
     protected $fillable = [
-        'biro_name'
+        'pegawai_nip', 'pegawai_name', 'jabatan_name', 'biro_id'
     ];
 
     // Tentukan kolom yang tidak dapat diubah (untuk keamanan)
@@ -24,9 +24,8 @@ class Mbiro extends Model
     public $timestamps = true;
 
 
-    public function pegawai()
+    public function biro()
     {
-        return $this->hasMany(Mpegawai::class, 'biro_id');
+        return $this->belongsTo(Mbiro::class, 'biro_id');
     }
-
 }
