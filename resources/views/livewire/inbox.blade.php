@@ -13,21 +13,15 @@
             </div>
         @endif --}}
         <div class="flex justify-between items-center">
-            <flux:heading size="xl">Employee</flux:heading>
+            <flux:heading size="xl">Inbox</flux:heading>
             <flux:breadcrumbs>
                 <flux:breadcrumbs.item href="#">Admin</flux:breadcrumbs.item>
                 <flux:breadcrumbs.item href="#">Master</flux:breadcrumbs.item>
-                <flux:breadcrumbs.item>Employee</flux:breadcrumbs.item>
+                <flux:breadcrumbs.item>Inbox</flux:breadcrumbs.item>
             </flux:breadcrumbs>
         </div>
 
         <flux:separator variant="subtle" class="my-4" />
-        <div class="mb-10">
-            <flux:modal.trigger name="form-data" class="p-4">
-                <flux:button size="sm" variant="primary">Add Employee</flux:button>
-            </flux:modal.trigger>
-        </div>
-
         <div
             class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 p-6">
             <div class="overflow-x-auto">
@@ -35,17 +29,22 @@
                     <thead class="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100">
                         <tr class="text-left">
                             <th class="px-4 py-2">No.</th>
-                            <th class="px-4 py-2">NIP</th>
                             <th class="px-4 py-2">Nama</th>
-                            <th class="px-4 py-2">Jabatan</th>
+                            <th class="px-4 py-2">No. Tlp</th>
                             <th class="px-4 py-2">Biro</th>
+                            <th class="px-4 py-2">Nama Arsip</th>
+                            <th class="px-4 py-2">Tgl Pinjam</th>
+                            <th class="px-4 py-2">Keterangan</th>
+                            <th class="px-4 py-2">Status</th>
                             <th class="px-4 py-2">Aksi</th>
-
                         </tr>
                     </thead>
                     <tbody>
                         {{-- @foreach ($biros as $index => $biro) --}}
                             <tr class="border-b dark:border-gray-600">
+                                <td class="px-4 py-2 text-gray-900 dark:text-gray-100"></td>
+                                <td class="px-4 py-2 text-gray-900 dark:text-gray-100"></td>
+                                <td class="px-4 py-2 text-gray-900 dark:text-gray-100"></td>
                                 <td class="px-4 py-2 text-gray-900 dark:text-gray-100"></td>
                                 <td class="px-4 py-2 text-gray-900 dark:text-gray-100"></td>
                                 <td class="px-4 py-2 text-gray-900 dark:text-gray-100"></td>
@@ -79,45 +78,5 @@
                 {{-- {{ $biros->links() }} --}}
             </div>
         </div>
-
-        <flux:modal name="form-data" variant="flyout">
-            <form wire:submit.prevent="save" class="space-y-6">
-                <div class="space-y-2">
-                    <flux:heading size="lg">
-                    </flux:heading>
-                    <flux:subheading> Data Biro Anda.</flux:subheading>
-                </div>
-
-                <flux:input label="Nama Biro" placeholder="Masukkan Nama Biro" class="mt-4" wire:model="biroName" />
-
-                <div class="flex space-x-4 mt-6">
-                    <flux:spacer />
-                    <flux:button type="submit" size="sm" variant="primary">
-                    </flux:button>
-                </div>
-            </form>
-        </flux:modal>
-
-        <flux:modal name="delete" class="min-w-[22rem]">
-            <div class="space-y-6">
-                <div>
-                    <flux:heading size="lg">Delete Baris ini ?</flux:heading>
-
-                    <flux:subheading>
-                        <p>You're about to delete this project.</p>
-                    </flux:subheading>
-                </div>
-
-                <div class="flex gap-2">
-                    <flux:spacer />
-
-                    <flux:modal.close>
-                        <flux:button variant="ghost">Cancel</flux:button>
-                    </flux:modal.close>
-
-                    <flux:button type="submit" variant="danger" wire:click=" ">Ya Hapus</flux:button>
-                </div>
-            </div>
-        </flux:modal>
     </flux:main>
 </div>
