@@ -11,30 +11,30 @@
                 <x-app-logo class="size-8" href="#"></x-app-logo>
             </a>
 
+            <flux:input as="button" variant="filled" placeholder="Search..." icon="magnifying-glass" />
+
             <flux:navlist variant="outline">
                 <flux:navlist.group heading="Platform" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                    <flux:navlist.item icon="inbox" badge="0" :href="route('inbox')" :current="request()->routeIs('inbox')" wire:navigate>{{ __('Inbox') }}</flux:navlist.item>
+                    <flux:navlist.item icon="book-open-text" href="#">Archive Loan Book</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
             <flux:navlist.group expandable heading="Master" class="lg:grid">
                 <flux:navlist.item :href="route('biro')" :current="request()->routeIs('biro')">{{ __('Biro') }}</flux:navlist.item>
 
-                <flux:navlist.item :href="route('role')" :current="request()->routeIs('role')">{{ __('Role') }}</flux:navlist.item>
-
                 <flux:navlist.item :href="route('user-management')" :current="request()->routeIs('user-management')">{{ __('User Management') }}</flux:navlist.item>
+
+                <flux:navlist.item :href="route('role')" :current="request()->routeIs('role')">{{ __('Role') }}</flux:navlist.item>
 
             </flux:navlist.group>
 
             <flux:spacer />
 
             <flux:navlist variant="outline">
-                <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                {{ __('Repository') }}
-                </flux:navlist.item>
-
-                <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits" target="_blank">
-                {{ __('Documentation') }}
+                <flux:navlist.item icon="cog" href="/settings/profile" target="">
+                {{ __('Settings') }}
                 </flux:navlist.item>
             </flux:navlist>
 
@@ -64,12 +64,6 @@
                                 </div>
                             </div>
                         </div>
-                    </flux:menu.radio.group>
-
-                    <flux:menu.separator />
-
-                    <flux:menu.radio.group>
-                        <flux:menu.item href="/settings/profile" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
                     </flux:menu.radio.group>
 
                     <flux:menu.separator />
@@ -114,12 +108,6 @@
                                 </div>
                             </div>
                         </div>
-                    </flux:menu.radio.group>
-
-                    <flux:menu.separator />
-
-                    <flux:menu.radio.group>
-                        <flux:menu.item href="/settings/profile" icon="cog" wire:navigate>Settings</flux:menu.item>
                     </flux:menu.radio.group>
 
                     <flux:menu.separator />
