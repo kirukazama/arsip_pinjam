@@ -20,9 +20,9 @@
             <flux:navlist.group expandable heading="Master" class="lg:grid">
                 <flux:navlist.item :href="route('biro')" :current="request()->routeIs('biro')">{{ __('Biro') }}</flux:navlist.item>
 
-                <flux:navlist.item :href="route('user-management')" :current="request()->routeIs('user-management')">{{ __('User Management') }}</flux:navlist.item>
-
                 <flux:navlist.item :href="route('role')" :current="request()->routeIs('role')">{{ __('Role') }}</flux:navlist.item>
+
+                <flux:navlist.item :href="route('user-management')" :current="request()->routeIs('user-management')">{{ __('User Management') }}</flux:navlist.item>
 
             </flux:navlist.group>
 

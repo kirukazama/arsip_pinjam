@@ -10,7 +10,7 @@ class Mrole extends Model
     use HasFactory;
 
     // Tentukan nama tabel jika berbeda dengan nama model
-    protected $table = 'role';
+    protected $table = 'roles';
 
     // Tentukan kolom yang dapat diisi
     protected $fillable = [
