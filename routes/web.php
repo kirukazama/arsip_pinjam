@@ -25,6 +25,7 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('pegawai', 'pegawai')->name('pegawai');
     Volt::route('users', 'users')->name('users');
     Volt::route('inbox', 'inbox')->name('inbox');
+    Volt::route('arsiplokasi', 'arsiplokasi')->name('arsiplokasi');
 });
 
 require __DIR__.'/auth.php';

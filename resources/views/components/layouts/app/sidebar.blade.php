@@ -27,8 +27,11 @@
                 <flux:navlist.item :href="route('pegawai')" :current="request()->routeIs('pegawai')">{{ __('Pegawai') }}</flux:navlist.item>
                 <flux:navlist.item :href="route('user-management')" :current="request()->routeIs('user-management')">{{ __('User Management') }}</flux:navlist.item>
                 <flux:navlist.item :href="route('users')" :current="request()->routeIs('users')">{{ __('User Management') }}</flux:navlist.item>
+            </flux:navlist.group>
 
-
+            <flux:navlist.group expandable heading="Master Arsip" class="lg:grid">
+                <flux:navlist.item :href="route('arsiplokasi')" :current="request()->routeIs('arsiplokasi')">{{ __('Lokasi') }}</flux:navlist.item>
+                <flux:navlist.item :href="route('role')" :current="request()->routeIs('role')">{{ __('Arsip') }}</flux:navlist.item>
             </flux:navlist.group>
 
             <flux:spacer />
