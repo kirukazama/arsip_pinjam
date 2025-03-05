@@ -3,6 +3,7 @@
 namespace App\Livewire;
 use App\Models\Mrole;
 use Livewire\WithPagination;
+use Masmerise\Toaster\Toaster;
 
 use Livewire\Component;
 
@@ -63,19 +64,18 @@ class Role extends Component
                 // Update data
                 $role = Mrole::find($this->roleId);
                 $role->update(['role_name' => $this->roleName]);
-                session()->flash('message', 'Role berhasil diperbarui.');
+                Toaster::success('Role berhasil diperbarui.');
             } else {
                 // Tambah data baru
                 Mrole::create(['role_name' => $this->roleName]);
-                session()->flash('message', 'Role berhasil ditambahkan.');
+                Toaster::success('Role berhasil ditambahkan.');
             }
 
             $this->modal('form-data')->close();
-            //$this->modal('success')->show();
             $this->resetInput();
 
         } catch (\Exception $e) {
-            session()->flash('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            Toaster::error('Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 
@@ -84,10 +84,10 @@ class Role extends Component
     {
         try {
             Mrole::find($id)->delete();
-            session()->flash('message', 'Role berhasil dihapus.');
+            Toaster::success('Role berhasil dihapus.');
             $this->modal('delete')->close();
         } catch (\Exception $e) {
-            session()->flash('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            Toaster::error('Terjadi kesalahan: ' . $e->getMessage());
             $this->modal('delete')->close();
         }
     }

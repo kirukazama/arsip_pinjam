@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\MarsipLokasi;
 use Livewire\WithPagination;
+use Masmerise\Toaster\Toaster;
 
 class ArsipLokasi extends Component
 {
@@ -75,22 +76,21 @@ class ArsipLokasi extends Component
                     'lokasi_column' => $this->lokasiColumn,
                     'lokasi_row' => $this->lokasiRow,
                 ]);
-                session()->flash('message', 'Lokasi Arsip berhasil diperbarui.');
+                Toaster::success('Lokasi Arsip berhasil diperbarui.');
             } else {
                 // Tambah data baru
                 MarsipLokasi::create([
                     'lokasi_cabin' => $this->lokasiCabin,
                     'lokasi_column' => $this->lokasiColumn,
                     'lokasi_row' => $this->lokasiRow,]);
-                session()->flash('message', 'Lokasi Arsip berhasil ditambahkan.');
+                Toaster::success('Lokasi Arsip berhasil ditambahkan.');
             }
 
             $this->modal('form-data')->close();
-            //$this->modal('success')->show();
             $this->resetInput();
 
         } catch (\Exception $e) {
-            session()->flash('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            Toaster::error('Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 
@@ -99,10 +99,10 @@ class ArsipLokasi extends Component
     {
         try {
             MarsipLokasi::find($id)->delete();
-            session()->flash('message', 'Lokasi Arsip berhasil dihapus.');
+            Toaster::success('Lokasi Arsip berhasil dihapus.');
             $this->modal('delete')->close();
         } catch (\Exception $e) {
-            session()->flash('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            Toaster::error('Terjadi kesalahan: ' . $e->getMessage());
             $this->modal('delete')->close();
         }
     }

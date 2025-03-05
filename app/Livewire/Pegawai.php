@@ -4,6 +4,7 @@ namespace App\Livewire;
 use App\Models\Mpegawai;
 use App\Models\Mbiro;
 use Livewire\WithPagination;
+use Masmerise\Toaster\Toaster;
 
 use Livewire\Component;
 
@@ -95,7 +96,7 @@ class Pegawai extends Component
                     'jabatan_name' => $this->jabatanName,
                     'biro_id' => $this->biroId,
                 ]);
-                session()->flash('message', 'Pegawai berhasil diperbarui.');
+                Toaster::success('Pegawai berhasil diperbarui.');
             } else {
                 // Tambah data baru
                 Mpegawai::create([
@@ -103,15 +104,14 @@ class Pegawai extends Component
                     'pegawai_name' => $this->pegawaiName,
                     'jabatan_name' => $this->jabatanName,
                     'biro_id' => $this->biroId,]);
-                session()->flash('message', 'Pegawai berhasil ditambahkan.');
+                Toaster::success('Pegawai berhasil ditambahkan.');
             }
 
             $this->modal('form-data')->close();
-            //$this->modal('success')->show();
             $this->resetInput();
 
         } catch (\Exception $e) {
-            session()->flash('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            Toaster::error('Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 
@@ -120,10 +120,10 @@ class Pegawai extends Component
     {
         try {
             Mpegawai::find($id)->delete();
-            session()->flash('message', 'Pegawai berhasil dihapus.');
+            Toaster::success('Pegawai berhasil dihapus.');
             $this->modal('delete')->close();
         } catch (\Exception $e) {
-            session()->flash('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            Toaster::error('Terjadi kesalahan: ' . $e->getMessage());
             $this->modal('delete')->close();
         }
     }

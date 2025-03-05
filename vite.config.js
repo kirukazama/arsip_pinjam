@@ -8,7 +8,9 @@ export default defineConfig({
     plugins: [
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.js'],
-            refresh: [`resources/views/**/*`],
+            refresh: [`resources/views/**/*`,
+            './resources/**/*.blade.php',
+            './vendor/masmerise/livewire-toaster/resources/views/*.blade.php',],
         }),
         tailwindcss(),
     ],

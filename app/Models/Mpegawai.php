@@ -28,4 +28,8 @@ class Mpegawai extends Model
     {
         return $this->belongsTo(Mbiro::class, 'biro_id');
     }
+
+    public function user(){
+        return $this->hasMany(User::class, 'pegawai_id');
+    }
 }

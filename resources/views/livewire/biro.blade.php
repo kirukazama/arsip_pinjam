@@ -1,17 +1,5 @@
 <div>
     <flux:main container class="space-y-6">
-        @if (session()->has('message'))
-            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
-                role="alert">
-                <span class="block sm:inline">{{ session('message') }}</span>
-            </div>
-        @endif
-
-        @if (session()->has('error'))
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-                <span class="block sm:inline">{{ session('error') }}</span>
-            </div>
-        @endif
         <div class="flex justify-between items-center">
             <flux:heading size="xl">Biro</flux:heading>
             <flux:breadcrumbs>
@@ -26,7 +14,7 @@
             <flux:modal.trigger name="form-data" class="p-4">
                 <flux:button size="sm" variant="primary">Tambah Biro</flux:button>
             </flux:modal.trigger>
-            <flux:input size="sm" wire:model.live="search" placeholder="Search role.." class="w-full max-w-sm ml-auto" />
+            <flux:input size="sm" wire:model.live="search" placeholder="Search biro.." class="w-full max-w-sm ml-auto" />
         </div>
 
         <div
@@ -83,12 +71,13 @@
                 </div>
 
                 <flux:input label="Nama Biro" placeholder="Masukkan Nama Biro" class="mt-4" wire:model="biroName" />
-
+                
                 <div class="flex space-x-4 mt-6">
                     <flux:spacer />
                     <flux:button type="submit" size="sm" variant="primary">
                         {{ $isEditMode ? 'Simpan Perubahan' : 'Tambah Biro' }}</flux:button>
                 </div>
+
             </form>
         </flux:modal>
 

@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Mbiro;
+use Masmerise\Toaster\Toaster;
 use Livewire\WithPagination;
 
 class Biro extends Component
@@ -63,19 +64,18 @@ class Biro extends Component
                 // Update data
                 $biro = Mbiro::find($this->biroId);
                 $biro->update(['biro_name' => $this->biroName]);
-                session()->flash('message', 'Biro berhasil diperbarui.');
+                Toaster::success('Biro berhasil diperbarui.');
             } else {
                 // Tambah data baru
                 Mbiro::create(['biro_name' => $this->biroName]);
-                session()->flash('message', 'Biro berhasil ditambahkan.');
+                Toaster::success('Biro berhasil ditambahkan.');
             }
 
             $this->modal('form-data')->close();
-            //$this->modal('success')->show();
             $this->resetInput();
 
         } catch (\Exception $e) {
-            session()->flash('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            Toaster::error('Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 
@@ -84,10 +84,11 @@ class Biro extends Component
     {
         try {
             Mbiro::find($id)->delete();
-            session()->flash('message', 'Biro berhasil dihapus.');
+            Toaster::success('Biro berhasil dihapus.');
             $this->modal('delete')->close();
         } catch (\Exception $e) {
             session()->flash('error', 'Terjadi kesalahan: ' . $e->getMessage());
+            Toaster::error('Terjadi kesalahan: ' . $e->getMessage());
             $this->modal('delete')->close();
         }
     }

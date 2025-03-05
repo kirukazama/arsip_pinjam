@@ -23,4 +23,8 @@ class Mrole extends Model
     // Jika menggunakan timestamp untuk created_at dan updated_at
     public $timestamps = true;
 
+    public function user(){
+        return $this->hasMany(User::class, 'role_id');
+    }
+
 }

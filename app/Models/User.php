@@ -22,6 +22,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'pegawai_id',
+        'role_id',
     ];
 
     /**
@@ -56,5 +58,13 @@ class User extends Authenticatable
             ->explode(' ')
             ->map(fn (string $name) => Str::of($name)->substr(0, 1))
             ->implode('');
+    }
+
+    public function pegawai(){
+        return $this->belongsTo(Mpegawai::class, 'pegawai_id');
+    }
+
+    public function role(){
+        return $this->belongsTo(Mrole::class, 'role_id');
     }
 }

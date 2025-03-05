@@ -25,7 +25,6 @@
                 <flux:navlist.item :href="route('biro')" :current="request()->routeIs('biro')">{{ __('Biro') }}</flux:navlist.item>
                 <flux:navlist.item :href="route('role')" :current="request()->routeIs('role')">{{ __('Role') }}</flux:navlist.item>
                 <flux:navlist.item :href="route('pegawai')" :current="request()->routeIs('pegawai')">{{ __('Pegawai') }}</flux:navlist.item>
-                <flux:navlist.item :href="route('user-management')" :current="request()->routeIs('user-management')">{{ __('User Management') }}</flux:navlist.item>
                 <flux:navlist.item :href="route('users')" :current="request()->routeIs('users')">{{ __('User Management') }}</flux:navlist.item>
             </flux:navlist.group>
 
