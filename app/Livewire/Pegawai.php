@@ -66,6 +66,7 @@ class Pegawai extends Component
     {
         $this->resetInput();
         $this->showModal = true;
+        $this->modal('form-data')->show();
     }
 
     // Buka modal untuk edit data
@@ -79,6 +80,7 @@ class Pegawai extends Component
         $this->biroId = $pegawai->biro_id;
         $this->isEditMode = true;
         $this->showModal = true;
+        $this->modal('form-data')->show();
     }
 
     // Simpan data (create atau update)
@@ -115,11 +117,17 @@ class Pegawai extends Component
         }
     }
 
+    public function confirmDelete($id)
+    {
+        $this->pegawaiId = $id;
+        $this->modal('delete')->show();
+    }
+
     // Hapus data
-    public function delete($id)
+    public function delete()
     {
         try {
-            Mpegawai::find($id)->delete();
+            Mpegawai::find($this->pegawaiId)->delete();
             Toaster::success('Pegawai berhasil dihapus.');
             $this->modal('delete')->close();
         } catch (\Exception $e) {

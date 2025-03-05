@@ -73,6 +73,7 @@ class Users extends Component
         $this->resetInput();
         $this->pegawaiId = $id;
         $this->showModal = true;
+        $this->modal('form-data')->show();
     }
 
     // Buka modal untuk edit data
@@ -86,6 +87,7 @@ class Users extends Component
         $this->roleId = $user->role_id;
         $this->isEditMode = true;
         $this->showModal = true;
+        $this->modal('form-data')->show();
     }
 
     // Simpan data (create atau update)
@@ -127,6 +129,7 @@ class Users extends Component
     public function confirmDelete($id)
     {
         $this->userId = $id;
+        $this->modal('delete')->show();
     }
 
     // Hapus data

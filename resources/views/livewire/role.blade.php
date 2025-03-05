@@ -12,10 +12,9 @@
         <flux:separator variant="subtle" class="my-4" />
 
         <div class="flex items-center gap-2">
-            <flux:modal.trigger name="form-data">
-                <flux:button size="sm" variant="primary">Tambah Role</flux:button>
-            </flux:modal.trigger>
-            <flux:input size="sm" wire:model.live="search" placeholder="Search role.." class="w-full max-w-sm ml-auto" />
+            <flux:button size="sm" variant="primary" wire:click="openModal()">Tambah Role</flux:button>
+            <flux:input size="sm" wire:model.live="search" placeholder="Search role.."
+                class="w-full max-w-sm ml-auto" />
         </div>
 
         <div
@@ -40,15 +39,12 @@
                                             inset="top bottom">
                                         </flux:button>
                                         <flux:menu>
-                                            <flux:modal.trigger name="form-data" class="p-4">
-                                                <flux:menu.item icon="document-text"
-                                                    wire:click="edit({{ $role->id }})" name="form-data">Edit
-                                                </flux:menu.item>
-                                            </flux:modal.trigger>
-                                            <flux:modal.trigger name="delete">
-                                                <flux:menu.item icon="archive-box" variant="danger">Delete
-                                                </flux:menu.item>
-                                            </flux:modal.trigger>
+                                            <flux:menu.item icon="document-text" wire:click="edit({{ $role->id }})"
+                                                name="form-data">Edit
+                                            </flux:menu.item>
+                                            <flux:menu.item icon="archive-box" variant="danger"
+                                                wire:click="confirmDelete({{ $role->id }})">Delete
+                                            </flux:menu.item>
                                         </flux:menu>
                                     </flux:dropdown>
                                 </td>
@@ -98,7 +94,7 @@
                         <flux:button variant="ghost">Cancel</flux:button>
                     </flux:modal.close>
 
-                    <flux:button type="submit" variant="danger" wire:click="delete({{ @$role->id }})">Ya Hapus
+                    <flux:button type="submit" variant="danger" wire:click="delete()">Ya Hapus
                     </flux:button>
                 </div>
             </div>

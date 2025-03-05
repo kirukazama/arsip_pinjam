@@ -11,10 +11,9 @@
 
         <flux:separator variant="subtle" class="my-4" />
         <div class="flex items-center gap-2">
-            <flux:modal.trigger name="form-data" class="p-4">
-                <flux:button size="sm" variant="primary">Tambah Biro</flux:button>
-            </flux:modal.trigger>
-            <flux:input size="sm" wire:model.live="search" placeholder="Search biro.." class="w-full max-w-sm ml-auto" />
+            <flux:button size="sm" variant="primary" wire:click="openModal()">Tambah Biro</flux:button>
+            <flux:input size="sm" wire:model.live="search" placeholder="Search biro.."
+                class="w-full max-w-sm ml-auto" />
         </div>
 
         <div
@@ -39,15 +38,12 @@
                                             inset="top bottom">
                                         </flux:button>
                                         <flux:menu>
-                                            <flux:modal.trigger name="form-data" class="p-4">
-                                                <flux:menu.item icon="document-text"
-                                                    wire:click="edit({{ $biro->id }})" name="form-data">Edit
-                                                </flux:menu.item>
-                                            </flux:modal.trigger>
-                                            <flux:modal.trigger name="delete">
-                                                <flux:menu.item icon="archive-box" variant="danger">Delete
-                                                </flux:menu.item>
-                                            </flux:modal.trigger>
+                                            <flux:menu.item icon="document-text" wire:click="edit({{ $biro->id }})"
+                                                name="form-data">Edit
+                                            </flux:menu.item>
+                                            <flux:menu.item icon="archive-box" variant="danger"
+                                                wire:click="confirmDelete({{ $biro->id }})">Delete
+                                            </flux:menu.item>
                                         </flux:menu>
                                     </flux:dropdown>
                                 </td>
@@ -71,7 +67,7 @@
                 </div>
 
                 <flux:input label="Nama Biro" placeholder="Masukkan Nama Biro" class="mt-4" wire:model="biroName" />
-                
+
                 <div class="flex space-x-4 mt-6">
                     <flux:spacer />
                     <flux:button type="submit" size="sm" variant="primary">
@@ -98,7 +94,8 @@
                         <flux:button variant="ghost">Cancel</flux:button>
                     </flux:modal.close>
 
-                    <flux:button type="submit" variant="danger" wire:click="delete({{ @$biro->id }})">Ya Hapus</flux:button>
+                    <flux:button type="submit" variant="danger" wire:click="delete()">Ya Hapus
+                    </flux:button>
                 </div>
             </div>
         </flux:modal>

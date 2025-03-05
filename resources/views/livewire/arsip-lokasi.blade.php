@@ -11,10 +11,9 @@
 
         <flux:separator variant="subtle" class="my-4" />
         <div class="flex items-center gap-2">
-            <flux:modal.trigger name="form-data" class="p-4">
-                <flux:button size="sm" variant="primary">Tambah Lokasi Arisp</flux:button>
-            </flux:modal.trigger>
-            <flux:input size="sm" wire:model.live="search" placeholder="Search.." class="w-full max-w-sm ml-auto" />
+            <flux:button size="sm" variant="primary" wire:click="openModal()">Tambah Lokasi Arisp</flux:button>
+            <flux:input size="sm" wire:model.live="search" placeholder="Search.."
+                class="w-full max-w-sm ml-auto" />
         </div>
 
         <div
@@ -43,15 +42,12 @@
                                             inset="top bottom">
                                         </flux:button>
                                         <flux:menu>
-                                            <flux:modal.trigger name="form-data" class="p-4">
-                                                <flux:menu.item icon="document-text"
-                                                    wire:click="edit({{ $lArsip->id }})" name="form-data">Edit
-                                                </flux:menu.item>
-                                            </flux:modal.trigger>
-                                            <flux:modal.trigger name="delete">
-                                                <flux:menu.item icon="archive-box" variant="danger">Delete
-                                                </flux:menu.item>
-                                            </flux:modal.trigger>
+                                            <flux:menu.item icon="document-text" wire:click="edit({{ $lArsip->id }})"
+                                                name="form-data">Edit
+                                            </flux:menu.item>
+                                            <flux:menu.item icon="archive-box" variant="danger"
+                                                wire:click="confirmDelete({{ $lArsip->id }})">Delete
+                                            </flux:menu.item>
                                         </flux:menu>
                                     </flux:dropdown>
                                 </td>
@@ -69,14 +65,18 @@
         <flux:modal name="form-data" variant="flyout">
             <form wire:submit.prevent="save" class="space-y-6">
                 <div class="space-y-2">
-                    <flux:heading size="lg">{{ $isEditMode ? 'Update Data Lokasi Arsip' : 'Tambah Data Lokasi Arsip' }}
+                    <flux:heading size="lg">
+                        {{ $isEditMode ? 'Update Data Lokasi Arsip' : 'Tambah Data Lokasi Arsip' }}
                     </flux:heading>
                     <flux:subheading>{{ $isEditMode ? 'Update' : 'Tambah' }} Data Lokasi Arsip Anda.</flux:subheading>
                 </div>
 
-                <flux:input label="Kabin Lokasi Arsip" placeholder="Masukkan Kabin Lokasi Arsip" class="mt-4" wire:model="lokasiCabin" />
-                <flux:input label="Kolom Lokasi Arsip" placeholder="Masukkan Kolom Lokasi Arsip" class="mt-4" wire:model="lokasiColumn" />
-                <flux:input label="Baris Lokasi Arsip" placeholder="Masukkan Baris Lokasi Arsip" class="mt-4" wire:model="lokasiRow" />
+                <flux:input label="Kabin Lokasi Arsip" placeholder="Masukkan Kabin Lokasi Arsip" class="mt-4"
+                    wire:model="lokasiCabin" />
+                <flux:input label="Kolom Lokasi Arsip" placeholder="Masukkan Kolom Lokasi Arsip" class="mt-4"
+                    wire:model="lokasiColumn" />
+                <flux:input label="Baris Lokasi Arsip" placeholder="Masukkan Baris Lokasi Arsip" class="mt-4"
+                    wire:model="lokasiRow" />
                 <div class="flex space-x-4 mt-6">
                     <flux:spacer />
                     <flux:button type="submit" size="sm" variant="primary">
@@ -102,7 +102,7 @@
                         <flux:button variant="ghost">Cancel</flux:button>
                     </flux:modal.close>
 
-                    <flux:button type="submit" variant="danger" wire:click="delete({{ @$lArsip->id }})">Ya Hapus</flux:button>
+                    <flux:button type="submit" variant="danger" wire:click="delete()">Ya Hapus</flux:button>
                 </div>
             </div>
         </flux:modal>

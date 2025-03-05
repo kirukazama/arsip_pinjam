@@ -42,6 +42,7 @@ class Role extends Component
     {
         $this->resetInput();
         $this->showModal = true;
+        $this->modal('form-data')->show();
     }
 
     // Buka modal untuk edit data
@@ -52,6 +53,7 @@ class Role extends Component
         $this->roleName = $role->role_name;
         $this->isEditMode = true;
         $this->showModal = true;
+        $this->modal('form-data')->show();
     }
 
     // Simpan data (create atau update)
@@ -79,11 +81,17 @@ class Role extends Component
         }
     }
 
+    public function confirmDelete($id)
+    {
+        $this->roleId = $id;
+        $this->modal('delete')->show();
+    }
+
     // Hapus data
-    public function delete($id)
+    public function delete()
     {
         try {
-            Mrole::find($id)->delete();
+            Mrole::find($this->roleId)->delete();
             Toaster::success('Role berhasil dihapus.');
             $this->modal('delete')->close();
         } catch (\Exception $e) {

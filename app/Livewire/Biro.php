@@ -42,6 +42,7 @@ class Biro extends Component
     {
         $this->resetInput();
         $this->showModal = true;
+        $this->modal('form-data')->show();
     }
 
     // Buka modal untuk edit data
@@ -52,13 +53,14 @@ class Biro extends Component
         $this->biroName = $biro->biro_name;
         $this->isEditMode = true;
         $this->showModal = true;
+        $this->modal('form-data')->show();
     }
 
     // Simpan data (create atau update)
     public function save()
     {
         $this->validate();
-        
+
         try {
             if ($this->isEditMode) {
                 // Update data
@@ -73,17 +75,22 @@ class Biro extends Component
 
             $this->modal('form-data')->close();
             $this->resetInput();
-
         } catch (\Exception $e) {
             Toaster::error('Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 
+    public function confirmDelete($id)
+    {
+        $this->biroId = $id;
+        $this->modal('delete')->show();
+    }
+
     // Hapus data
-    public function delete($id)
+    public function delete()
     {
         try {
-            Mbiro::find($id)->delete();
+            Mbiro::find($this->biroId)->delete();
             Toaster::success('Biro berhasil dihapus.');
             $this->modal('delete')->close();
         } catch (\Exception $e) {

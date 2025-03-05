@@ -12,9 +12,7 @@
         <flux:separator variant="subtle" class="my-4" />
 
         <div class="flex items-center gap-2">
-            <flux:modal.trigger name="form-data">
-                <flux:button size="sm" variant="primary">Tambah Pegawai</flux:button>
-            </flux:modal.trigger>
+            <flux:button size="sm" variant="primary" wire:click="openModal()">Tambah Pegawai</flux:button>
             <flux:input size="sm" wire:model.live="search" placeholder="Cari dengan NIP / Nama.."
                 class="w-full max-w-sm ml-auto" />
         </div>
@@ -52,15 +50,12 @@
                                                 inset="top bottom">
                                             </flux:button>
                                             <flux:menu>
-                                                <flux:modal.trigger name="form-data" class="p-4">
-                                                    <flux:menu.item icon="document-text"
-                                                        wire:click="edit({{ $pegawai->id }})" name="form-data">Edit
-                                                    </flux:menu.item>
-                                                </flux:modal.trigger>
-                                                <flux:modal.trigger name="delete">
-                                                    <flux:menu.item icon="archive-box" variant="danger">Delete
-                                                    </flux:menu.item>
-                                                </flux:modal.trigger>
+                                                <flux:menu.item icon="document-text"
+                                                    wire:click="edit({{ $pegawai->id }})" name="form-data">Edit
+                                                </flux:menu.item>
+                                                <flux:menu.item icon="archive-box" variant="danger"
+                                                    wire:click="confirmDelete({{ $pegawai->id }})">Delete
+                                                </flux:menu.item>
                                             </flux:menu>
                                         </flux:dropdown>
                                     </td>
@@ -76,10 +71,10 @@
                     </tbody>
                 </table>
             </div>
-            @if($pegawais)
-            <div class="mt-4">
-                {{ $pegawais->links() }}
-            </div>
+            @if ($pegawais)
+                <div class="mt-4">
+                    {{ $pegawais->links() }}
+                </div>
             @endif
         </div>
 
@@ -100,7 +95,7 @@
                     wire:model="jabatanName" />
 
                 <flux:select label="Pilih Biro" wire:model="biroId">
-                        <option>:: Pilih Biro ::</option>
+                    <option>:: Pilih Biro ::</option>
                     @if ($biros)
                         @foreach ($biros as $biro)
                             <option value="{{ $biro->id }}">{{ $biro->biro_name }}</option>
@@ -133,7 +128,7 @@
                         <flux:button variant="ghost">Cancel</flux:button>
                     </flux:modal.close>
 
-                    <flux:button type="submit" variant="danger" wire:click="delete({{ @$pegawai->id }})">Ya Hapus
+                    <flux:button type="submit" variant="danger" wire:click="delete()">Ya Hapus
                     </flux:button>
                 </div>
             </div>

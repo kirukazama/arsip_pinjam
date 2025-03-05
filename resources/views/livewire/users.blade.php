@@ -11,9 +11,6 @@
 
         <flux:separator variant="subtle" class="my-4" />
         <div class="flex items-center gap-2">
-            {{-- <flux:modal.trigger name="form-data" class="p-4">
-                <flux:button size="sm" variant="primary">Tambah Biro</flux:button>
-            </flux:modal.trigger> --}}
             <flux:input size="sm" wire:model.live="search" placeholder="Search Pegawai.."
                 class="w-full max-w-sm ml-auto" />
         </div>
@@ -52,12 +49,10 @@
                                     {{ $pegawai->biro->biro_name ?? '-' }}</td>
                                 {{-- <td class="px-4 py-2 text-gray-900 dark:text-gray-100">{{ $pegawai->user->count() }}</td> --}}
                                 <td class="px-4 py-2 text-gray-900 dark:text-gray-100">
-                                    <flux:modal.trigger name="form-data" class="p-4">
-                                        <flux:button size="sm" variant="primary"
-                                            wire:click="openModal({{ $pegawai->id }})">
-                                            <flux:icon.plus size="xs" />
-                                        </flux:button>
-                                    </flux:modal.trigger>
+                                    <flux:button size="sm" variant="primary"
+                                        wire:click="openModal({{ $pegawai->id }})">
+                                        <flux:icon.plus size="xs" />
+                                    </flux:button>
                                 </td>
                             </tr>
 
@@ -85,15 +80,12 @@
                                                     inset="top bottom">
                                                 </flux:button>
                                                 <flux:menu>
-                                                    <flux:modal.trigger name="form-data" class="p-4">
-                                                        <flux:menu.item icon="document-text"
-                                                            wire:click="edit({{ $user->id }})" name="form-data">Edit
-                                                        </flux:menu.item>
-                                                    </flux:modal.trigger>
-                                                    <flux:modal.trigger name="delete">
-                                                        <flux:menu.item icon="archive-box" variant="danger" wire:click="confirmDelete({{ $user->id }})">Delete
-                                                        </flux:menu.item>
-                                                    </flux:modal.trigger>
+                                                    <flux:menu.item icon="document-text"
+                                                        wire:click="edit({{ $user->id }})" name="form-data">Edit
+                                                    </flux:menu.item>
+                                                    <flux:menu.item icon="archive-box" variant="danger"
+                                                        wire:click="confirmDelete({{ $user->id }})">Delete
+                                                    </flux:menu.item>
                                                 </flux:menu>
                                             </flux:dropdown>
                                         </td>

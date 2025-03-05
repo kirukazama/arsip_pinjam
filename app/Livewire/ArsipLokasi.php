@@ -48,11 +48,13 @@ class ArsipLokasi extends Component
     {
         $this->resetInput();
         $this->showModal = true;
+        $this->modal('form-data')->show();
     }
 
     // Buka modal untuk edit data
     public function edit($id)
     {
+        $this->resetInput();
         $lArsip = MarsipLokasi::findOrFail($id);
         $this->lokasiId = $lArsip->id;
         $this->lokasiCabin = $lArsip->lokasi_cabin;
@@ -60,6 +62,7 @@ class ArsipLokasi extends Component
         $this->lokasiRow = $lArsip->lokasi_row;
         $this->isEditMode = true;
         $this->showModal = true;
+        $this->modal('form-data')->show();
     }
 
     // Simpan data (create atau update)
@@ -94,11 +97,17 @@ class ArsipLokasi extends Component
         }
     }
 
+    public function confirmDelete($id)
+    {
+        $this->lokasiId = $id;
+        $this->modal('delete')->show();
+    }
+
     // Hapus data
-    public function delete($id)
+    public function delete()
     {
         try {
-            MarsipLokasi::find($id)->delete();
+            MarsipLokasi::find($this->lokasiId)->delete();
             Toaster::success('Lokasi Arsip berhasil dihapus.');
             $this->modal('delete')->close();
         } catch (\Exception $e) {
