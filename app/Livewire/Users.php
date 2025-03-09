@@ -26,8 +26,8 @@ class Users extends Component
     public $expandedPegawaiIds = [];
 
     protected $rules = [
-        'userName' => 'required|min:3',
-        'userEmail' => 'required|email|unique:users,email',
+        'userName' => 'required|min:6|unique:users,name',
+        'userEmail' => 'required|email', // |unique:users,email
         'roleId' => 'required',
         'pegawaiId' => 'required|exists:pegawai,id',
     ];

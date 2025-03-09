@@ -24,6 +24,7 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('pegawai', 'pegawai')->name('pegawai');
     Volt::route('users', 'users')->name('users');
     Volt::route('inbox', 'inbox')->name('inbox');
+    Volt::route('arsip', 'arsip')->name('arsip');
     Volt::route('arsiplokasi', 'arsiplokasi')->name('arsiplokasi');
 });
 
