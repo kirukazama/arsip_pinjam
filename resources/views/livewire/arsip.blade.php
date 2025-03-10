@@ -28,8 +28,11 @@
                             <th class="px-4 py-2">Tanggal Masuk</th>
                             <th class="px-4 py-2">Tanggal Akhir</th>
                             <th class="px-4 py-2">Aktif</th>
-                            <th class="px-4 py-2">Lokasi ID</th>
-                            <th class="px-4 py-2">Biro ID</th>
+                            <th class="px-4 py-2">Jumlah</th>
+                            <th class="px-4 py-2">Jenis</th>
+                            <th class="px-4 py-2">Keterangan</th>
+                            <th class="px-4 py-2">Lokasi</th>
+                            <th class="px-4 py-2">Biro</th>
                             <th class="px-4 py-2">Aksi</th>
                         </tr>
                     </thead>
@@ -43,8 +46,11 @@
                                 <td class="px-4 py-2 text-gray-900 dark:text-gray-100">{{ $arsip->arsip_akhir }}</td>
                                 <td class="px-4 py-2 text-gray-900 dark:text-gray-100">
                                     {{ $arsip->is_active ? 'Ya' : 'Tidak' }}</td>
-                                <td class="px-4 py-2 text-gray-900 dark:text-gray-100">{{ $arsip->lokasi_id }}</td>
-                                <td class="px-4 py-2 text-gray-900 dark:text-gray-100">{{ $arsip->biro_id }}</td>
+                                <td class="px-4 py-2 text-gray-900 dark:text-gray-100">{{ $arsip->jumlah }}</td>
+                                <td class="px-4 py-2 text-gray-900 dark:text-gray-100">{{ $arsip->arsip_jenis }}</td>
+                                <td class="px-4 py-2 text-gray-900 dark:text-gray-100">{{ $arsip->arsip_keterangan }}</td>
+                                <td class="px-4 py-2 text-gray-900 dark:text-gray-100">{{ $arsip->lokasi->lokasi_cabin }}/{{ $arsip->lokasi->lokasi_column }}/{{ $arsip->lokasi->lokasi_row }}</td>
+                                <td class="px-4 py-2 text-gray-900 dark:text-gray-100">{{ $arsip->biro->biro_name }}</td>
                                 <td class="px-4 py-2">
                                     <flux:dropdown position="bottom" align="end" offset="-15">
                                         <flux:button variant="ghost" size="sm" icon="ellipsis-horizontal"
@@ -89,6 +95,16 @@
                 <flux:input label="Tanggal Akhir" type="date" placeholder="Masukkan Tanggal Akhir" class="mt-4"
                     wire:model="arsipAkhir" />
                 <flux:checkbox label="Aktif" wire:model="isActive" class="mt-4" checked />
+                <flux:select label="Pilih Lokasi" wire:model="arsipJenis">
+                    <option>:: Pilih Jenis ::</option>
+                    @if ($jenisArr)
+                        @foreach ($jenisArr as $jenis)
+                            <option value="{{ $jenis }}">{{ ucfirst($jenis) }}</option>
+                        @endforeach
+                    @endif
+                </flux:select>
+                <flux:input label="Jumlah" type="number" placeholder="Masukkan Jumlah" class="mt-4" wire:model="jumlah" />
+                <flux:textarea label="Keterangan" placeholder="Masukkan Keterangan" class="mt-4" wire:model="arsipKeterangan" />
                 <flux:select label="Pilih Lokasi" wire:model="lokasiId">
                     <option>:: Pilih Lokasi ::</option>
                     @if ($lokasis)

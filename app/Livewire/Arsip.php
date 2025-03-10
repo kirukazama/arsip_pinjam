@@ -13,10 +13,11 @@ class Arsip extends Component
 {
     use WithPagination;
 
-    public $arsipId, $arsipKode, $arsipName, $arsipMasuk, $arsipAkhir, $isActive, $lokasiId, $biroId;
+    public $arsipId, $arsipKode, $arsipName, $arsipMasuk, $arsipAkhir, $isActive, $lokasiId, $biroId, $arsipJenis, $jumlah, $arsipKeterangan;
     public $search = '';
     public $isEditMode = false;
     public $showModal = false;
+    public $jenisArr = ['fisik', 'digital'];
 
     protected $rules = [
         'arsipKode' => 'required|string',
@@ -26,17 +27,24 @@ class Arsip extends Component
         'isActive' => 'required|boolean',
         'lokasiId' => 'required|integer',
         'biroId' => 'required|integer',
+        'arsipJenis' => 'required|string', 
+        'jumlah' => 'required|integer',
+        'arsipKeterangan' => 'required|string'
     ];
 
     public function render()
     {
         return view('livewire.arsip', [
-            'arsips' => Marsip::when($this->search, function ($query) {
+            'arsips' => Marsip::with(['lokasi', 'biro'])
+            ->when($this->search, function ($query) {
                 $query->where('arsip_kode', 'like', '%' . $this->search . '%')
                     ->orWhere('arsip_name', 'like', '%' . $this->search . '%');
-            })->latest()->paginate(5),
+            })
+            ->latest()
+            ->paginate(5),
             'biros' => Mbiro::all(),
             'lokasis' => MarsipLokasi::all(),
+            'jenisArr' => $this->jenisArr,
         ]);
     }
 
@@ -52,6 +60,9 @@ class Arsip extends Component
         $this->lokasiId = '';
         $this->biroId = '';
         $this->isEditMode = false;
+        $this->arsipJenis = '';
+        $this->jumlah = '';
+        $this->arsipKeterangan ='';
     }
 
     // Buka modal untuk tambah data
@@ -73,6 +84,9 @@ class Arsip extends Component
         $this->arsipMasuk = $arsip->arsip_masuk;
         $this->arsipAkhir = $arsip->arsip_akhir;
         $this->isActive = $arsip->is_active;
+        $this->arsipJenis = $arsip->arsip_jenis;
+        $this->jumlah = $arsip->jumlah; 
+        $this->arsipKeterangan = $arsip->arsip_keterangan;
         $this->lokasiId = $arsip->lokasi_id;
         $this->biroId = $arsip->biro_id;
         $this->isEditMode = true;
@@ -95,6 +109,9 @@ class Arsip extends Component
                     'arsip_masuk' => $this->arsipMasuk,
                     'arsip_akhir' => $this->arsipAkhir,
                     'is_active' => $this->isActive,
+                    'arsip_jenis' => $this->arsipJenis,
+                    'jumlah' => $this->jumlah, 
+                    'arsip_keterangan' => $this->arsipKeterangan,
                     'lokasi_id' => $this->lokasiId,
                     'biro_id' => $this->biroId,
                 ]);
@@ -107,6 +124,9 @@ class Arsip extends Component
                     'arsip_masuk' => $this->arsipMasuk,
                     'arsip_akhir' => $this->arsipAkhir,
                     'is_active' => $this->isActive,
+                    'arsip_jenis' => $this->arsipJenis,
+                    'jumlah' => $this->jumlah, 
+                    'arsip_keterangan' => $this->arsipKeterangan,
                     'lokasi_id' => $this->lokasiId,
                     'biro_id' => $this->biroId,
                 ]);

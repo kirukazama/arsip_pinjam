@@ -14,7 +14,7 @@ class Marsip extends Model
 
     // Tentukan kolom yang dapat diisi
     protected $fillable = [
-        'arsip_kode', 'arsip_name', 'arsip_masuk', 'arsip_akhir', 'is_active', 'lokasi_id', 'biro_id'
+        'arsip_kode', 'arsip_name', 'arsip_masuk', 'arsip_akhir', 'is_active', 'lokasi_id', 'biro_id', 'arsip_jenis', 'jumlah', 'arsip_keterangan'
     ];
 
     // Tentukan kolom yang tidak dapat diubah (untuk keamanan)
@@ -22,4 +22,14 @@ class Marsip extends Model
 
     // Jika menggunakan timestamp untuk created_at dan updated_at
     public $timestamps = true;
+
+    public function biro()
+    {
+        return $this->belongsTo(Mbiro::class, 'biro_id');
+    }
+
+    public function lokasi()
+    {
+        return $this->belongsTo(MarsipLokasi::class, 'lokasi_id');
+    }
 }

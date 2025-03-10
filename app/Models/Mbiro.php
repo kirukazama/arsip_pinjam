@@ -29,4 +29,9 @@ class Mbiro extends Model
         return $this->hasMany(Mpegawai::class, 'biro_id');
     }
 
+    public function arsip()
+    {
+        return $this->hasMany(Marsip::class, 'biro_id');
+    }
+
 }

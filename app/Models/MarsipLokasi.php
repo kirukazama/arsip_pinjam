@@ -22,4 +22,9 @@ class MarsipLokasi extends Model
 
     // Jika menggunakan timestamp untuk created_at dan updated_at
     public $timestamps = true;
+
+    public function arsip()
+    {
+        return $this->hasMany(Marsip::class, 'lokasi_id');
+    }
 }
