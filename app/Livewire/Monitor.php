@@ -7,19 +7,21 @@ use App\Models\Mpeminjaman;
 use Livewire\WithPagination;
 use Masmerise\Toaster\Toaster;
 
-class Inbox extends Component
+
+class Monitor extends Component
 {
     use WithPagination;
 
     public $search = '';
     public $showDetail = false;
 
-    public $peminjamanId, $pinjamTanggal, $pinjamStatus, $keterangan, $pinjamTelp, $catatan, $pinjamTujuan, $kembaliTanggal, $arsipKode, $arsipName, $arsipJenis, $biroName, $pegawaiName, $pegawaiEmail;
+    public $pinjamTanggal, $pinjamStatus, $keterangan, $pinjamTelp, $catatan, $pinjamTujuan, $kembaliTanggal, $arsipKode, $arsipName, $arsipJenis, $biroName;
+
 
     public function render()
     {
         $peminjamans = Mpeminjaman::with(['arsip', 'pegawai', 'biro'])
-            ->where('biro_id', auth()->user()->pegawai->biro_id)
+            ->where('pegawai_id', auth()->user()->pegawai_id)
             ->when($this->search, function ($query) {
                 $query->whereHas('arsip', function ($query) {
                     $query->where('arsip_kode', 'like', '%' . $this->search . '%')
@@ -29,7 +31,7 @@ class Inbox extends Component
             ->latest()
             ->paginate(5);
 
-        return view('livewire.inbox', [
+        return view('livewire.monitor', [
             'peminjamans' => $peminjamans, // Langsung kembalikan hasil query pagination ke view
         ]);
     }
@@ -38,9 +40,8 @@ class Inbox extends Component
     {
         $this->resetDetail();
 
-        $pinjam = Mpeminjaman::with(['arsip', 'biro', 'pegawai.user'])->findOrFail($id);
+        $pinjam = Mpeminjaman::with(['arsip', 'biro'])->findOrFail($id);
 
-        $this->peminjamanId = $id;
         $this->pinjamTanggal = $pinjam->pinjam_tanggal;
         $this->kembaliTanggal = $pinjam->kembali_tanggal;
         $this->pinjamStatus = $pinjam->pinjam_status;
@@ -51,47 +52,49 @@ class Inbox extends Component
         $this->arsipKode = $pinjam->arsip->arsip_kode;
         $this->arsipName = $pinjam->arsip->arsip_name;
         $this->arsipJenis = $pinjam->arsip->arsip_jenis;
-        $this->biroName = $pinjam->pegawai->biro->biro_name;
-        $this->pegawaiName = $pinjam->pegawai->pegawai_name;
-        $this->pegawaiEmail = $pinjam->pegawai?->user->pluck('email')->first();
+        $this->biroName = $pinjam->biro->biro_name;
+
         $this->showDetail = true;
     }
 
     public function resetDetail()
     {
         $this->showDetail = false;
-        $this->reset([
-            'pinjamTanggal', 'pinjamStatus', 'keterangan', 'pinjamTelp',
-            'catatan', 'pinjamTujuan', 'kembaliTanggal', 'arsipKode', 'arsipName',
-            'arsipJenis', 'biroName', 'pegawaiName', 'pegawaiEmail', 'peminjamanId'
-        ]);
+        $this->reset(['pinjamTanggal', 'pinjamStatus', 'keterangan', 'pinjamTelp', 'catatan', 'pinjamTujuan', 'kembaliTanggal', 'arsipKode', 'arsipName', 'arsipJenis', 'biroName']);
     }
 
     public function verifikasi()
     {
         try {
             $this->validate([
-                'pinjamStatus' => 'required|string',
-                'catatan' => 'required|string',
+                'pinjamTanggal' => 'required|date|after_or_equal:today',
+                'pinjamTelp' => 'required|string',
+                'keterangan' => 'string',
+                'pinjamTujuan' => 'required|string',
+                'kembaliTanggal' => 'required|date|after:pinjamTanggal',
             ]);
 
             // Ambil biro_id dari user yang login
             $biroId = auth()->user()->pegawai->biro_id;
             $pegawaiId = auth()->user()->pegawai_id;
 
-            $peminjaman = Mpeminjaman::find($this->peminjamanId);
-            $peminjaman->update([
-                'pinjam_status' => $this->pinjamStatus,
-                'catatan' => $this->catatan,
+            $peminjaman = Mpeminjaman::create([
+                'pinjam_tanggal' => $this->pinjamTanggal,
+                'pinjam_status' => 'pengajuan',
+                'catatan' => '',
+                'pinjam_telp' => $this->pinjamTelp,
+                'keterangan' => $this->keterangan,
+                'pinjam_tujuan' => $this->pinjamTujuan,
+                'kembali_tanggal' => $this->kembaliTanggal,
+                'arsip_id' => $this->selectedArsipId,
+                'pegawai_id' => $pegawaiId, // Ambil pegawai_id user yang login
+                'biro_id' => $biroId, // Ambil biro_id dari user yang login
             ]);
 
-            $this->modal('pinjam-modal')->close();
-            Toaster::success('Verifikasi berhasail.');
-            $this->resetDetail();
+            Toaster::success('Arsip berhasil dipinjam.');
+            $this->resetPinjamModal();
         } catch (\Exception $e) {
-            $this->modal('pinjam-modal')->close();
             Toaster::error('Terjadi kesalahan: ' . $e->getMessage());
-            $this->resetDetail();
         }
     }
 }

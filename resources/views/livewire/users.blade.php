@@ -67,7 +67,7 @@
                                     <td class="px-4 py-2"></td>
                                 </tr>
                                 @foreach ($pegawai->user as $user)
-                                    <tr class="bg-indigo-50 hover:bg-indigo-100">
+                                    <tr class="border-b dark:border-gray-600">
                                         <td></td>
                                         <td class="px-4 py-2 text-gray-900 dark:text-gray-100">{{ $user->name }}</td>
                                         <td colspan="2" class="px-4 py-2 text-gray-900 dark:text-gray-100">

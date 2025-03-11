@@ -16,11 +16,15 @@
             <flux:navlist variant="outline">
                 <flux:navlist.group heading="Platform" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                    @if (Auth::user() && strtolower(Auth::user()->role) === 'verifikator')
                     <flux:navlist.item icon="inbox" badge="0" :href="route('inbox')" :current="request()->routeIs('inbox')" wire:navigate>{{ __('Inbox') }}</flux:navlist.item>
+                    @endif
                     <flux:navlist.item icon="book-open-text" badge="0" :href="route('peminjaman')" :current="request()->routeIs('peminjaman')" wire:navigate>{{ __('Archive Loan Book') }}</flux:navlist.item>
+                    <flux:navlist.item icon="eye" badge="0" :href="route('monitor')" :current="request()->routeIs('monitor')" wire:navigate>{{ __('Archive Loan Status') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
+            @if (Auth::user() && strtolower(Auth::user()->role) === 'admin')
             <flux:navlist variant="outline">
                 <flux:navlist.group expandable heading="Master" class="lg:grid">
                     <flux:navlist.item :href="route('biro')" :current="request()->routeIs('biro')">{{ __('Biro') }}</flux:navlist.item>
@@ -29,6 +33,7 @@
                     <flux:navlist.item :href="route('users')" :current="request()->routeIs('users')">{{ __('User Management') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
+            
 
             <flux:navlist variant="outline">
                 <flux:navlist.group expandable heading="Master Arsip" class="lg:grid">
@@ -36,6 +41,8 @@
                     <flux:navlist.item :href="route('arsip')" :current="request()->routeIs('arsip')">{{ __('Daftar Arsip') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
+
+            @endif
 
             <flux:spacer />
 

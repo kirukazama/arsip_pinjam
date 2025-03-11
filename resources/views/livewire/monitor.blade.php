@@ -46,12 +46,10 @@
                                 </td>
                                 <td class="px-4 py-2 text-gray-900 dark:text-gray-100"><flux:badge variant="solid" color="{{ $pinjam->pinjam_status === 'tolak verifikator' ? 'red' : ($pinjam->pinjam_status === 'setuju verifikator' ? 'green' : 'blue') }}">{{ $pinjam->pinjam_status }}</flux:badge></td>
                                 <td class="px-4 py-2">
-                                    @if($pinjam->pinjam_status !== "setuju verifikator")
                                     <flux:button variant="primary" size="sm"
                                         wire:click="detail({{ $pinjam->id }})">
-                                        Verifikasi
+                                        Detail
                                     </flux:button>
-                                    @endif
                                 </td>
                             </tr>
                         @empty
@@ -73,38 +71,14 @@
 
     <flux:modal name="pinjam-modal" variant="flyout" wire:model="showDetail">
         <div class="space-y-2">
-            <flux:heading size="lg">Verifikasi Peminjaman Arsip</flux:heading>
+            <flux:heading size="lg">Detail Peminjaman Arsip</flux:heading>
             <flux:subheading>detail peminjaman arsip.</flux:subheading>
         </div>
         <flux:separator variant="subtle" class="my-4" />
 
-        <form wire:submit.prevent="verifikasi" class="space-y-6">
+        <form wire:submit.prevent="pinjam" class="space-y-6">
             <table class="w-full border border-gray-300 rounded-lg border-collapse">
                 <tbody>
-                    <tr class="bg-emerald-200 dark:bg-emerald-700 text-gray-900 dark:text-gray-100 text-left">
-                        <td class="p-2 font-semibold border border-gray-300 w-1/3" colspan="2">Data Peminjam</td>
-                    </tr>
-                    <tr class="border-b border-gray-300">
-                        <td class="p-2 font-semibold border border-gray-300 w-1/3">Nama Peminjam / Email</td>
-                        <td class="p-2 border border-gray-300">{{ $pegawaiName }} / {{ $pegawaiEmail }}</td>
-                    </tr>
-                    <tr class="border-b border-gray-300">
-                        <td class="p-2 font-semibold border border-gray-300">Telepon Peminjam</td>
-                        <td class="p-2 border border-gray-300">{{ $pinjamTelp }}</td>
-                    </tr>
-                    <tr class="border-b border-gray-300">
-                        <td class="p-2 font-semibold border border-gray-300">Biro Peminjam</td>
-                        <td class="p-2 border border-gray-300"> Biro {{ $biroName }}</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <table class="w-full border border-gray-300 rounded-lg border-collapse">
-                <tbody>
-                    <tr class="bg-emerald-200 dark:bg-emerald-700 text-gray-900 dark:text-gray-100 text-left">
-                        <td class="p-2 font-semibold border border-gray-300 w-1/3" colspan="2">Data arsip yang
-                            dipinjam</td>
-                    </tr>
                     <tr class="border-b border-gray-300">
                         <td class="p-2 font-semibold border border-gray-300 w-1/3">Kode Arsip</td>
                         <td class="p-2 border border-gray-300">{{ $arsipKode }}</td>
@@ -123,8 +97,19 @@
                     </tr>
                     <tr class="border-b border-gray-300">
                         <td class="p-2 font-semibold border border-gray-300 w-1/3">Tanggal Peminjaman</td>
-                        <td class="p-2 border border-gray-300">{{ date('d-m-Y', strtotime($pinjamTanggal)) }} s/d
-                            {{ date('d-m-Y', strtotime($kembaliTanggal)) }}</td>
+                        <td class="p-2 border border-gray-300">{{ date('d-m-Y', strtotime($pinjamTanggal)) }}</td>
+                    </tr>
+                    <tr class="border-b border-gray-300">
+                        <td class="p-2 font-semibold border border-gray-300">Tanggal Kembali</td>
+                        <td class="p-2 border border-gray-300">{{ date('d-m-Y', strtotime($kembaliTanggal)) }}</td>
+                    </tr>
+                    <tr class="border-b border-gray-300">
+                        <td class="p-2 font-semibold border border-gray-300">Status Pinjam</td>
+                        <td class="p-2 border border-gray-300">{{ $pinjamStatus }}</td>
+                    </tr>
+                    <tr class="border-b border-gray-300">
+                        <td class="p-2 font-semibold border border-gray-300">Telepon Peminjam</td>
+                        <td class="p-2 border border-gray-300">{{ $pinjamTelp }}</td>
                     </tr>
                     <tr class="border-b border-gray-300">
                         <td class="p-2 font-semibold border border-gray-300">Tujuan Peminjaman</td>
@@ -134,24 +119,12 @@
                         <td class="p-2 font-semibold border border-gray-300">Keterangan</td>
                         <td class="p-2 border border-gray-300">{{ $keterangan }}</td>
                     </tr>
+                    <tr>
+                        <td class="p-2 font-semibold border border-gray-300">Catatan Verifikator</td>
+                        <td class="p-2 border border-gray-300">{{ $catatan }}</td>
+                    </tr>
                 </tbody>
             </table>
-
-            <flux:separator variant="subtle" class="my-4" />
-
-            <flux:select label="Keputusan" wire:model="pinjamStatus">
-                <option>:: Pilih Keputusan ::</option>
-                <option value="setuju verifikator">Setujui</option>
-                <option value="tolak verikiator">Tolak</option>
-            </flux:select>
-
-            <flux:textarea label="Catatan" placeholder="Masukkan Catatan jika perlu" class="mt-4"
-                wire:model="catatan" />
-
-            <div class="flex space-x-4 mt-6">
-                <flux:spacer />
-                <flux:button type="submit" size="sm" variant="primary"> Proses </flux:button>
-            </div>
         </form>
     </flux:modal>
 </div>

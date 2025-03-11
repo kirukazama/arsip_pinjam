@@ -27,6 +27,7 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('arsip', 'arsip')->name('arsip');
     Volt::route('arsiplokasi', 'arsiplokasi')->name('arsiplokasi');
     Volt::route('peminjaman', 'peminjaman')->name('peminjaman');
+    Volt::route('monitor', 'monitor')->name('monitor');
 });
 
 require __DIR__.'/auth.php';
