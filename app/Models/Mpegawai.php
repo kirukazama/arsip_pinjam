@@ -32,4 +32,8 @@ class Mpegawai extends Model
     public function user(){
         return $this->hasMany(User::class, 'pegawai_id');
     }
+
+    public function peminjaman(){
+        return $this->hasMany(Mpeminjaman::class, 'pegawai_id');
+    }
 }

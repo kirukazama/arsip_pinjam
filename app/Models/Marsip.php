@@ -32,4 +32,9 @@ class Marsip extends Model
     {
         return $this->belongsTo(MarsipLokasi::class, 'lokasi_id');
     }
+
+    public function peminjaman()
+    {
+        return $this->hasMany(Mpeminjaman::class, 'arsip_id');
+    }
 }
