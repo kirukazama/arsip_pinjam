@@ -16,7 +16,7 @@
             <flux:navlist variant="outline">
                 <flux:navlist.group heading="Platform" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
-                    @if (Auth::user() && strtolower(Auth::user()->role) === 'verifikator')
+                    @if (Auth::user() && strtolower(Auth::user()->role->role_name) === 'verifikator')
                     <flux:navlist.item icon="inbox" badge="0" :href="route('inbox')" :current="request()->routeIs('inbox')" wire:navigate>{{ __('Inbox') }}</flux:navlist.item>
                     @endif
                     <flux:navlist.item icon="book-open-text" badge="0" :href="route('peminjaman')" :current="request()->routeIs('peminjaman')" wire:navigate>{{ __('Archive Loan Book') }}</flux:navlist.item>
@@ -24,7 +24,7 @@
                 </flux:navlist.group>
             </flux:navlist>
 
-            @if (Auth::user() && strtolower(Auth::user()->role) === 'admin')
+            @if (Auth::user() && strtolower(Auth::user()->role->role_name) === 'admin')
             <flux:navlist variant="outline">
                 <flux:navlist.group expandable heading="Master" class="lg:grid">
                     <flux:navlist.item :href="route('biro')" :current="request()->routeIs('biro')">{{ __('Biro') }}</flux:navlist.item>
