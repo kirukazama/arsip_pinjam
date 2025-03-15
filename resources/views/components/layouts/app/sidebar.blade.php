@@ -11,10 +11,52 @@
                 <x-app-logo class="size-8" href="#"></x-app-logo>
             </a>
 
-            <flux:input as="button" variant="filled" placeholder="Search..." icon="magnifying-glass" />
+            <flux:separator />
+
+            <flux:dropdown position="bottom" align="end">
+                @if(auth()->user()->avatar)
+                <flux:profile avatar="/img/demo/user.png" name="Olivia Martin" />
+                @else
+                <flux:profile
+                    :name="auth()->user()->name"
+                    :initials="auth()->user()->initials()"/>
+                @endif
+
+                <flux:navmenu>
+                    <div class="p-0 text-sm font-normal">
+                        <div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                            <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-lg">
+                                <span
+                                    class="flex h-full w-full items-center justify-center rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
+                                    {{ auth()->user()->initials() }}
+                                </span>
+                            </span>
+
+                            <div class="grid flex-1 text-left text-sm leading-tight">
+                                <span class="truncate font-semibold">{{ auth()->user()->name }}</span>
+                                <span class="truncate text-xs">{{ auth()->user()->email }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <flux:separator />
+                    <flux:navmenu.item href="/settings/profile" icon="user">Akun</flux:navmenu.item>
+                    <form method="POST" action="{{ route('logout') }}" class="w-full">
+                        @csrf
+                    <flux:navmenu.item as="button" type="submit" icon="arrow-right-start-on-rectangle">Logout</flux:navmenu.item>
+                </form>
+                </flux:navmenu>
+            </flux:dropdown>
+
+            <flux:radio.group x-data variant="segmented" x-model="$flux.appearance" size="sm">
+                <flux:radio value="light" icon="sun" />
+                <flux:radio value="dark" icon="moon" />
+                <flux:radio value="system" icon="computer-desktop" />
+            </flux:radio.group>
+
+            <flux:separator />
 
             <flux:navlist variant="outline">
-                <flux:navlist.group heading="Platform" class="grid">
+                <flux:navlist.group heading="Menu" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
                     @if (Auth::user() && strtolower(Auth::user()->role->role_name) === 'verifikator')
                     <flux:navlist.item icon="inbox" badge="0" :href="route('inbox')" :current="request()->routeIs('inbox')" wire:navigate>{{ __('Inbox') }}</flux:navlist.item>
@@ -46,14 +88,14 @@
 
             <flux:spacer />
 
-            <flux:navlist variant="outline">
+            {{-- <flux:navlist variant="outline">
                 <flux:navlist.item icon="cog" href="/settings/profile" target="">
                 {{ __('Settings') }}
                 </flux:navlist.item>
-            </flux:navlist>
+            </flux:navlist> --}}
 
             <!-- Desktop User Menu -->
-            <flux:dropdown position="bottom" align="start">
+            {{-- <flux:dropdown position="bottom" align="start">
                 <flux:profile
                     :name="auth()->user()->name"
                     :initials="auth()->user()->initials()"
@@ -66,8 +108,7 @@
                             <div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                                 <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-lg">
                                     <span
-                                        class="flex h-full w-full items-center justify-center rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white"
-                                    >
+                                        class="flex h-full w-full items-center justify-center rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
                                         {{ auth()->user()->initials() }}
                                     </span>
                                 </span>
@@ -89,7 +130,7 @@
                         </flux:menu.item>
                     </form>
                 </flux:menu>
-            </flux:dropdown>
+            </flux:dropdown> --}}
         </flux:sidebar>
 
         <!-- Mobile User Menu -->
